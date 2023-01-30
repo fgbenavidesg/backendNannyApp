@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       activo: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue:false
       },
       fecha: {
         type: Sequelize.DATE

@@ -13,7 +13,13 @@ router.post("/",[
     check('password','El password es obligatorio').not().isEmpty(),
     check('email','El email es obligatorio').isEmail(),
     validarCampos
-],authController.login)
+],authController.login);
+
+
+router.post('/google',[
+    check('token','El token de google es obligatorio').not().isEmpty(),
+    validarCampos,
+],authController.google);
 
 router.get("/renew",validarJWT,authController.renewToken)
 

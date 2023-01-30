@@ -1,5 +1,6 @@
-const {Usuario} = require("../models")
+const { Usuario } = require("../models")
 const bcrypt = require("bcryptjs");
+const { generarJWT } = require("../helpers/jwt");
 
 class authController {
 
@@ -8,7 +9,7 @@ class authController {
         const { email, password } = req.body;
         try {
 
-            const usuarioDB = await Usuario.findOne({where: {email} });
+            const usuarioDB = await Usuario.findOne({ where: { email } });
 
             if (!usuarioDB) {
                 return res.status(404).json({
@@ -42,17 +43,17 @@ class authController {
         }
 
     }
-    static async renewToken(req, res){
+    static async renewToken(req, res) {
 
         const id = req.id;
         const token = await generarJWT(id);
-    
+
         try {
             const usuario = await Usuario.findByPk(id);
             if (!usuario) {
                 res.status(404).json({
-                    ok:false,
-                    msg:'usuario con id no encontrado'
+                    ok: false,
+                    msg: 'usuario con id no encontrado'
                 });
             }
             res.json({
@@ -60,7 +61,7 @@ class authController {
                 token,
                 usuario,
             })
-    
+
         } catch (error) {
             console.log(error)
             res.status(401).json({
@@ -68,7 +69,49 @@ class authController {
                 msg: 'consultar con el administrador'
             })
         }
-    
+
+    }
+    static async google(req, res) {
+
+        const googletoken = req.body.token;
+        try {
+            const { name, email, picture } = await verify(googletoken);
+
+            const usuarioDB = await Usuario.findOne({where: { email } });
+            let usuario;
+
+            if (!usuarioDB) {
+                usuario = new Usuario({
+                    nombre: name,
+                    email,
+                    password: '@@@',
+                    img: picture,
+                    google: true,
+                });
+            } else {
+                usuario = usuarioDB;
+                usuario.password = '@@@';
+                usuario.google = true;
+            }
+
+            //guardar en db
+            await usuario.save();
+            //generar el token - jwt
+            const token = await generarJWT(usuario.id)
+
+            res.json({
+                ok: true,
+                token,
+            });
+
+        } catch (error) {
+            console.log(error)
+            res.status(401).json({
+                ok: false,
+                msg: 'token no es valido'
+            })
+        }
+
     }
 
 }
