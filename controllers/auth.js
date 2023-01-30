@@ -85,7 +85,7 @@ class authController {
                     nombre: name,
                     email,
                     password: '@@@',
-                    img: picture,
+                    foto: picture,
                     google: true,
                 });
             } else {
