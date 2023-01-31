@@ -50,7 +50,7 @@ const fileUpload =(req, res= response) =>{
      
      //path para guardar la imagen
      const path = `./uploads/${tipo}/${nombreArchivo}`; 
-
+     
      //mover la imagen mv()
 
      file.mv(path, (err)=> {

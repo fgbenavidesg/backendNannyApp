@@ -1,5 +1,4 @@
-const { response } = require("express");
-const Usuario = require("../models/usuario");
+const {Usuario} = require("../models");
 const fs = require("fs"); 
 
 
@@ -10,10 +9,7 @@ let pathViejo='';
     switch (tipo) {
         case 'foto':
 
-            const usuario =  await Usuario.findByPk(id);
-            if(!foto){
-                return false;
-            }
+            const usuario =  await Usuario.findByPk(id)
              pathViejo = `./uploads/foto/${usuario.foto}`;
             if(fs.existsSync(pathViejo)){
                 //borrar la imagen
