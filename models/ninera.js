@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     celular: DataTypes.STRING,
     descripcion: DataTypes.STRING,
     fechaNacimiento: DataTypes.DATE,
-    fotoDni: DataTypes.STRING,
     disposicionCobro: DataTypes.FLOAT,
     idiomaNativo: DataTypes.STRING,
     idiomaSecundario: DataTypes.STRING,

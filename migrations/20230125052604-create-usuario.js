@@ -30,6 +30,12 @@ module.exports = {
       foto: {
         type: Sequelize.STRING
       },
+      fotoDni: {
+        type: Sequelize.STRING
+      },
+      verificado: {
+        type: Sequelize.BOOLEAN
+      },
       activo: {
         type: Sequelize.BOOLEAN
       },

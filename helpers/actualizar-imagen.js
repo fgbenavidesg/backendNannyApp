@@ -1,17 +1,20 @@
-const {Usuario} = require("../models");
-const fs = require("fs"); 
+const { Usuario } = require("../models");
+const fs = require("fs");
 
 
-const actualizarImagen = async(tipo,id,nombreArchivo ) =>{
+const actualizarImagen = async (tipo, id, nombreArchivo) => {
 
-let pathViejo='';
+    let pathViejo = '';
 
     switch (tipo) {
         case 'foto':
 
-            const usuario =  await Usuario.findByPk(id)
-             pathViejo = `./uploads/foto/${usuario.foto}`;
-            if(fs.existsSync(pathViejo)){
+            const usuario = await Usuario.findByPk(id)
+            if (!usuario) {
+                return false;
+            }
+            pathViejo = `./uploads/foto/${usuario.foto}`;
+            if (fs.existsSync(pathViejo)) {
                 //borrar la imagen
                 fs.unlinkSync(pathViejo);
             }
@@ -20,31 +23,30 @@ let pathViejo='';
             await usuario.save();
             return true;
 
-        break;
-        
-        // case 'dni':
+            break;
 
-        //     const usuarioDNI =  await Usuario.findById(id);
-        //     if(!hospital){
-        //         return false;
-        //     }
-        //      pathViejo = `./uploads/dni/${usuarioDNI.dni}`;
+        case 'dni':
 
-        //     if(fs.existsSync(pathViejo)){
-        //         //borrar la imagen
-        //         fs.unlinkSync(pathViejo);
-        //     }
+            const usuarioDNI = await Usuario.findById(id);
+            if (!usuarioDNI) {
+                return false;
+            }
+            pathViejo = `./uploads/dni/${usuarioDNI.fotoDni}`;
 
-        //     hospital.img = nombreArchivo;
-        //     await hospital.save();
-        //     return true;
-                       
-        // break;
+            if (fs.existsSync(pathViejo)) {
+                //borrar la imagen
+                fs.unlinkSync(pathViejo);
+            }
+
+            usuarioDNI.fotoDni = nombreArchivo;
+            await usuarioDNI.save();
+            return true;
+            break;
 
     }
 
 }
 
-module.exports={
+module.exports = {
     actualizarImagen
 }

@@ -18,9 +18,6 @@ module.exports = {
       fechaNacimiento: {
         type: Sequelize.DATE
       },
-      fotoDni: {
-        type: Sequelize.STRING
-      },
       disposicionCobro: {
         type: Sequelize.FLOAT
       },
