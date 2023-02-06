@@ -10,11 +10,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       activo: {
-        type: Sequelize.BOOLEAN,
-        defaultValue:false
+        type: Sequelize.BOOLEAN
       },
       fecha: {
         type: Sequelize.DATE
+      },
+      horai: {
+        type: Sequelize.STRING
+      },
+      horaf: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

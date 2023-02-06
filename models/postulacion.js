@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Postulacion.init({
     activo: DataTypes.BOOLEAN,
-    fecha: DataTypes.DATE
+    fecha: DataTypes.DATE,
+    horai: DataTypes.STRING,
+    horaf: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Postulacion',
