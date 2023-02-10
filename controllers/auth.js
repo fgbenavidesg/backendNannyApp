@@ -1,6 +1,7 @@
 const { Usuario } = require("../models")
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../helpers/jwt");
+const { verify } = require("../helpers/google-verify");
 
 class authController {
 
@@ -86,12 +87,11 @@ class authController {
                     email,
                     password: '@@@',
                     foto: picture,
-                    google: true,
+                    activo: true,
                 });
             } else {
                 usuario = usuarioDB;
-                usuario.password = '@@@';
-                usuario.google = true;
+                usuario.activo = true;
             }
 
             //guardar en db
@@ -101,7 +101,8 @@ class authController {
 
             res.json({
                 ok: true,
-                token,
+                email,name,picture,
+                token
             });
 
         } catch (error) {

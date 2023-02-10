@@ -8,10 +8,9 @@ const client = new OAuth2Client(process.env.GOOGLE_ID);
       audience: process.env.GOOGLE_ID,
   });
   const payload = ticket.getPayload();
-  const {name, email, picture} = payload;
-  return {name, email, picture};
+  console.log({payload})
+  return payload;
 }
-//verify().catch(console.error);
 module.exports={
     verify
 }
