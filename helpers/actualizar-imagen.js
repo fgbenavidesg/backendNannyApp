@@ -27,7 +27,7 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
 
         case 'dni':
 
-            const usuarioDNI = await Usuario.findById(id);
+            const usuarioDNI = await Usuario.findByPk(id);
             if (!usuarioDNI) {
                 return false;
             }

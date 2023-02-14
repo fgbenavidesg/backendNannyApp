@@ -1,4 +1,5 @@
 const { Usuario } = require("../models")
+const { getMenuFrontEnd }=require('./../helpers/menu-front');
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../helpers/jwt");
 const { verify } = require("../helpers/google-verify");
@@ -33,6 +34,8 @@ class authController {
             res.json({
                 ok: true,
                 token,
+                menu:getMenuFrontEnd(usuarioDB.rol)
+                
             });
 
         } catch (error) {
@@ -61,14 +64,10 @@ class authController {
                 ok: true,
                 token,
                 usuario,
+                menu:getMenuFrontEnd(usuario.rol)
             })
-
-        } catch (error) {
+        } catch(error) {
             console.log(error)
-            res.status(401).json({
-                ok: false,
-                msg: 'consultar con el administrador'
-            })
         }
 
     }
@@ -87,6 +86,7 @@ class authController {
                     email,
                     password: '@@@',
                     foto: picture,
+                    rol:"padre",
                     activo: true,
                 });
             } else {
@@ -102,7 +102,8 @@ class authController {
             res.json({
                 ok: true,
                 email,name,picture,
-                token
+                token,
+                menu:getMenuFrontEnd(usuario.rol)
             });
 
         } catch (error) {

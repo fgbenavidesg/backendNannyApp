@@ -18,9 +18,9 @@ router.post("/",[
 
 router.get("/",validarJWT,UsuarioController.findAll);
 
-router.get(":id",validarJWT,UsuarioController.findOne);
+router.get("/:id",validarJWT,UsuarioController.findOne);
 
-router.put(":id",validarJWT,UsuarioController.update);
+router.put("/:id",validarJWT,UsuarioController.update);
 
 router.delete("/:id",validarJWT,UsuarioController.destroy);
 module.exports = router;

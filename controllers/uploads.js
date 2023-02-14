@@ -24,7 +24,6 @@ const fileUpload =(req, res= response) =>{
     //validar
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).json({
-
             ok:false,
             msg: 'no se encontro archivo'
         });
@@ -90,9 +89,6 @@ const retornaImagen = (req, res = response)=>{
         const pathImg  = path.join(__dirname, `../uploads/no-imagen.png`);
         res.sendFile(pathImg)
     }
-
-
-
 
 }
 
